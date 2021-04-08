@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/itemHome">
 
+    <fragment
+        android:id="@+id/itemChat"
+        android:name="com.example.uts160418039.view.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/itemOther"
+        android:name="com.example.uts160418039.view.SettingFragment"
+        android:label="Other"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/actionToTheme"
+            app:destination="@id/themeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemAddFriend"
+        android:name="com.example.uts160418039.view.AddFriendFragment"
+        android:label="Add Friend"
+        tools:layout="@layout/fragment_add_friend" />
+    <fragment
+        android:id="@+id/itemNewChat"
+        android:name="com.example.uts160418039.view.CreateChatFragment"
+        android:label="New Chat"
+        tools:layout="@layout/fragment_create_chat" >
+        <action
+            android:id="@+id/actionChatToOption"
+            app:destination="@id/optionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemHome"
+        android:name="com.example.uts160418039.view.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/actionHomeToOption"
+            app:destination="@id/optionFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/optionFragment"
+        android:name="com.example.uts160418039.view.OptionFragment"
+        android:label="fragment_option"
+        tools:layout="@layout/fragment_option" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/themeFragment"
+        android:name="com.example.uts160418039.view.ThemeFragment"
+        android:label="fragment_theme"
+        tools:layout="@layout/fragment_theme" />
 </navigation>
