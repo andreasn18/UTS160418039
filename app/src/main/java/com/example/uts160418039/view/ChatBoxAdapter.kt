@@ -33,6 +33,8 @@ class ChatBoxAdapter(val chatRooms: ArrayList<ChatRoom>, var id: String) :
         if (chat[position].pengirim == "Tester") {
             holder.view.txtSenderChat.setText(chat[position].text)
             holder.view.cardReceiver.visibility = View.GONE
+            holder.view.profile_image.visibility = View.GONE
+            holder.view.progressBar5.visibility = View.GONE
         } else {
             val friend = chatRooms[id.toInt()-1].friend as Friend
             holder.view.profile_image.loadImage(friend.image_url, holder.view.progressBar5)
