@@ -9,7 +9,13 @@
         android:id="@+id/itemChat"
         android:name="com.example.uts160418039.view.ChatFragment"
         android:label="Chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/actionToChatRoom"
+            app:destination="@id/chatRoomFragment"
+            app:popUpTo="@id/itemChat"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/itemOther"
         android:name="com.example.uts160418039.view.SettingFragment"
@@ -59,4 +65,13 @@
         android:name="com.example.uts160418039.view.ThemeFragment"
         android:label="fragment_theme"
         tools:layout="@layout/fragment_theme" />
+    <fragment
+        android:id="@+id/chatRoomFragment"
+        android:name="com.example.uts160418039.view.ChatRoomFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat_room" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

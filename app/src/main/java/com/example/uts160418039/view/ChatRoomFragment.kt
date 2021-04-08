@@ -11,49 +11,57 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.uts160418039.R
 import com.example.uts160418039.viewmodel.ChatRoomListViewModel
 import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.fragment_chat_room.*
 
-class ChatFragment : Fragment() {
+class ChatRoomFragment : Fragment() {
     private lateinit var viewModel: ChatRoomListViewModel
-    private val chatBoxAdapter = ChatFragmentAdapter(arrayListOf())
+    private var chatRoomAdapter = ChatBoxAdapter(arrayListOf(), "")
+    var id = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        return inflater.inflate(R.layout.fragment_chat_room, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChatRoomListViewModel::class.java)
         viewModel.refresh()
-        recView1.layoutManager = LinearLayoutManager(context)
-        recView1.adapter = chatBoxAdapter
+        recView2.layoutManager = LinearLayoutManager(context)
+        recView2.adapter = chatRoomAdapter
         observeViewModel()
+        btnSend.setOnClickListener {
+            txtInputChat.setText("")
+        }
     }
 
-    fun observeViewModel(){
+    fun observeViewModel() {
         viewModel.chatRoomLD.observe(viewLifecycleOwner, Observer {
-            chatBoxAdapter.updateChatBox(it)
+            if (arguments != null) {
+                chatRoomAdapter.updateChatRoom(
+                    it,
+                    ChatRoomFragmentArgs.fromBundle(requireArguments()).id
+                )
+            }
         })
 
         viewModel.loadingErrorLD.observe(viewLifecycleOwner, Observer {
-            if (it){
-                txtError1.visibility = View.VISIBLE
-            }
-            else{
-                txtError1.visibility = View.GONE
+            if (it) {
+                txtError5.visibility = View.VISIBLE
+            } else {
+                txtError5.visibility = View.GONE
             }
         })
 
         viewModel.loadingDoneLd.observe(viewLifecycleOwner, Observer {
-            if(it){
-                progressLoad1.visibility = View.GONE
-                recView1.visibility = View.VISIBLE
-            }
-            else{
-                progressLoad1.visibility = View.VISIBLE
-                recView1.visibility = View.GONE
+            if (it) {
+                progressLoad3.visibility = View.GONE
+                recView2.visibility = View.VISIBLE
+            } else {
+                progressLoad3.visibility = View.VISIBLE
+                recView2.visibility = View.GONE
             }
         })
     }

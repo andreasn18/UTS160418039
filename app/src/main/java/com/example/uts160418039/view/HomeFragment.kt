@@ -14,27 +14,26 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: FriendListViewModel
-    private val createChatAdapter = CreateChatAdapter(arrayListOf())
     val header: MutableList<String> = ArrayList()
     val body: MutableList<List<Friend>> = ArrayList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        header.add("Favorite")
+        header.add("Friends")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        header.clear()
-        body.clear()
-        header.add("Favorite")
-        header.add("Friends")
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(FriendListViewModel::class.java)
         viewModel.refresh()
-//        recView.layoutManager = LinearLayoutManager(context)
         expand.setAdapter(ExpandAdapter(view.context, header, body))
         observeViewModel("")
     }
@@ -62,13 +61,6 @@ class HomeFragment : Fragment() {
                 progressLoad2.visibility = View.VISIBLE
                 expand.visibility = View.GONE
             }
-//            refreshLayout.setOnRefreshListener {
-//                expand.visibility = View.GONE
-//                txtError2.visibility = View.GONE
-//                progressLoad2.visibility = View.VISIBLE
-//                viewModel.refresh()
-//                refreshLayout.isRefreshing = false
-//            }
         })
     }
 }
